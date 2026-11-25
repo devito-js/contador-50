@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#111214" />
+    <meta name="description" content="Temporizador de provas: organize seus horários e acompanhe o tempo de cada avaliação." />
+    <title>Tempo de Prova | SENAI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#inicio" aria-label="Tempo de Prova, início">
+          <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M11 4h10M16 4v4m8.5-.5 2 2M16 9a11 11 0 1 0 0 22 11 11 0 0 0 0-22Z" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M16 15v6l4 2" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="brand-copy"><strong>tempo<span>de</span>prova</strong></span>
+        </a>
+        <div class="header-right"><button type="button" id="openProjector" class="button button-secondary">Abrir projetor</button><span class="senai-badge"><span class="badge-dot"></span> ARTE 3D PARA JOGOS DIGITAIS</span><button class="icon-button sound-toggle" id="soundToggle" aria-label="Ativar som" title="Ativar som"><svg viewBox="0 0 24 24" fill="none"><path d="M11 5 6 9H3v6h3l5 4V5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M15.5 8.5a5 5 0 0 1 0 7m3-10a9 9 0 0 1 0 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div>
+      </header>
+
+      <main id="inicio">
+        <section class="intro">
+          <div><div class="eyebrow"><span></span> ARTE 3D PARA</div><h1>JOGOS<br /><span>DIGITAIS</span></h1><p>Temporizador de prova por dia e módulo.</p></div>
+          <div class="intro-art" aria-hidden="true"><div class="art-circle"></div><div class="art-grid"></div><div class="art-card"><span></span><div class="art-line"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div><div class="art-spark">✳</div></div>
+        </section>
+
+        <section class="dashboard" aria-label="Temporizador e provas do dia">
+          <article class="timer-card">
+            <div class="card-heading"><div><h2>Temporizador</h2></div><span class="live-pill"><i></i><span id="timerStatus" role="status">PRONTO</span></span></div>
+            <div class="timer-main"><div class="timer-ring" id="timerRing"><svg viewBox="0 0 260 260" aria-hidden="true"><circle class="ring-track" cx="130" cy="130" r="117"/><circle class="ring-progress" id="ringProgress" cx="130" cy="130" r="117"/></svg><div class="timer-readout"><span class="timer-caption" id="timerCaption">TEMPO RESTANTE</span><strong id="timerDisplay">00:00</strong><span class="timer-sub" id="timerSub">Selecione uma prova para começar</span></div></div></div>
+            <div class="timer-progress"><span id="progressFill"></span></div>
+            <div class="timer-actions"><button class="button button-primary" id="startBtn" disabled><svg viewBox="0 0 20 20" fill="currentColor"><path d="M6 4.8c0-.8.9-1.3 1.6-.9l9 5.2a1 1 0 0 1 0 1.8l-9 5.2a1 1 0 0 1-1.6-.9V4.8Z"/></svg><span>Iniciar prova</span></button><button class="button button-secondary" id="resetBtn" disabled>Reiniciar</button><button type="button" id="editTimer" class="button button-secondary" disabled>Editar tempo</button></div><div class="alarm-actions"><button type="button" id="testAlarm" class="button button-secondary">Testar alarme</button><button type="button" id="stopAlarm" class="button button-secondary" hidden>Parar alarme</button></div>
+            <div class="timer-note"><svg viewBox="0 0 20 20" fill="none"><path d="M10 2.5a7.5 7.5 0 1 0 0 15 7.5 7.5 0 0 0 0-15Z" stroke="currentColor" stroke-width="1.5"/><path d="M10 9v4m0-6v.1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>Mantenha a aba aberta durante a prova.</div>
+          </article>
+
+          <article class="schedule-card">
+            <div class="schedule-heading"><div><h2>Módulos do dia</h2></div><button class="button button-add" id="addExamBtn"><span>+</span> Novo módulo</button></div>
+            <div class="date-row"><button class="date-arrow" id="prevDay" aria-label="Dia anterior">‹</button><label class="date-picker"><svg viewBox="0 0 20 20" fill="none"><rect x="2.5" y="4.5" width="15" height="13" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M6.5 2.5v4m7-4v4M2.5 8.5h15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><input type="date" id="datePicker" aria-label="Data das provas" /></label><button class="date-arrow" id="nextDay" aria-label="Próximo dia">›</button><button class="today-button" id="todayBtn">Hoje</button><span class="exam-count" id="examCount">0 provas</span></div>
+            <div class="exam-list" id="examList" aria-live="polite"></div>
+            <div class="schedule-footer"><span class="storage-icon">◈</span> Seus dados ficam salvos neste dispositivo.</div>
+          </article>
+        </section>
+        
+      </main>
+    </div>
+
+    <dialog id="examDialog" class="exam-dialog" aria-labelledby="dialogTitle"><form id="examForm"><div class="dialog-head"><div><h2 id="dialogTitle">Nova prova</h2></div><button type="button" class="dialog-close" id="closeDialog" aria-label="Fechar">×</button></div><label class="field-label" for="examName">Nome do módulo</label><input class="text-input" id="examName" name="name" maxlength="70" placeholder="Ex.: Modelagem de personagem" required /><div class="field-row"><div><label class="field-label" for="examDuration">Duração</label><div class="duration-input"><input class="text-input" id="examDuration" type="number" min="1" max="600" value="60" required /><span>min</span></div></div><div><label class="field-label" for="examTime">Horário <span class="optional">opcional</span></label><input class="text-input" id="examTime" type="time" /></div></div><label class="field-label" for="examNotes">Observação <span class="optional">opcional</span></label><input class="text-input" id="examNotes" maxlength="100" placeholder="Ex.: entrega em arquivo FBX" /><input type="hidden" id="examId" /><div class="dialog-actions"><button type="button" class="button button-secondary" id="cancelDialog">Cancelar</button><button type="submit" class="button button-primary"><span>Salvar módulo</span></button></div></form></dialog>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
+
+
+
